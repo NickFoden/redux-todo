@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 
-import { createTodo } from './actions/todos'
+import { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo } from './actions/todos'
 
 class App extends Component {
   state = {
@@ -23,6 +23,18 @@ class App extends Component {
     });
   };
 
+  _handleCompleted = id => {
+    this.props.completedTodo(id);
+  }
+
+  _handleDeleted = id => {
+    this.props.deletedTodo(id);
+  }
+
+  _handleDeletedAllCompleted = () => {
+    this.props.deletedAllCompletedTodo();
+  }
+
   render() {
     return (
       <div className="App">
@@ -36,11 +48,17 @@ class App extends Component {
           />
         </form>
         <br />
-        {this.props.todos.map(({text, id}) => (
+        {this.props.todos.map(({text, id, completed}) => (
           <div key={id}>
             {text}
+            <input onChange={() => this._handleCompleted(id)} type="checkbox" value={completed} />
+            <button onClick={() => this._handleDeleted(id)} > Delete Me </button>
           </div>  
         ))}
+        <br />
+        <hr />
+        <br />
+        <button onClick={this._handleDeletedAllCompleted}> Delete All completed </ button>
       </div>
     );
   }
@@ -49,4 +67,4 @@ class App extends Component {
 
 export default connect(state => ({
   todos: state.todos
-}), { createTodo })(App);
+}), { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo })(App);
