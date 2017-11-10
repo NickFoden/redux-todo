@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 
-import { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo } from './actions/todos'
+import { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo, fetchTodos } from './actions/todos'
+import Todo from './components/Todo';
+
 
 class App extends Component {
   state = {
     text: '',
   };
+
+  componentDidMount(){
+    this.props.fetchTodos();
+  }
 
   _handleSubmit = e => {
     e.preventDefault();
@@ -36,6 +42,9 @@ class App extends Component {
   }
 
   render() {
+    if (!this.props.todos.isFetched) {
+      return <h1> Loading . . . </h1>;
+    }
     return (
       <div className="App">
         <form className="App-intro" onSubmit={this._handleSubmit} >
@@ -48,12 +57,8 @@ class App extends Component {
           />
         </form>
         <br />
-        {this.props.todos.map(({text, id, completed}) => (
-          <div key={id}>
-            {text}
-            <input onChange={() => this._handleCompleted(id)} type="checkbox" value={completed} />
-            <button onClick={() => this._handleDeleted(id)} > Delete Me </button>
-          </div>  
+        {this.props.todos.data.map(todo => (
+          <Todo {...todo} key={todo.id} /> 
         ))}
         <br />
         <hr />
@@ -67,4 +72,4 @@ class App extends Component {
 
 export default connect(state => ({
   todos: state.todos
-}), { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo })(App);
+}), { createTodo, completedTodo, deletedTodo, deletedAllCompletedTodo, fetchTodos })(App);

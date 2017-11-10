@@ -1,5 +1,29 @@
 {
-    "todos": [
-      { "id": 1, "title": "json-server", "author": "typicode" }
-    ]
-  }
+  "todos": [
+    {
+      "text": "Hello",
+      "id": "ca2f0bd6-4a68-4acd-955b-8e8dd4f2c3be",
+      "completed": false
+    },
+    {
+      "text": "Hello",
+      "id": "870ae5e3-5339-41d1-bdd7-128b7cd67fce",
+      "completed": false
+    },
+    {
+      "text": "hhmmm",
+      "id": "1ab27264-3ca2-4fed-9c40-42c39f6486aa",
+      "completed": false
+    },
+    {
+      "text": "ok",
+      "id": "2c28e88d-cf08-4031-b531-80de0ff4dd71",
+      "completed": false
+    },
+    {
+      "text": "cool",
+      "id": "e76313c7-a11e-47f4-a7e9-40038371abc5",
+      "completed": false
+    }
+  ]
+}
